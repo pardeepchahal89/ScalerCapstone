@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/products")
 public class ProductController {
     ProductService productService;
 
@@ -21,13 +22,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ProductResponseDto getProduct(@PathVariable int id) throws ProductNotFoundException {
         Product product = this.productService.getProductById(id);
         return ProductResponseDto.from(product);
     }
 
-    @GetMapping("/products")
+    @GetMapping()
     public List<ProductResponseDto> getAllProducts() {
         List<Product> products = this.productService.getAllProducts();
         List<ProductResponseDto> productResponseDtos = new ArrayList<>();
@@ -38,7 +39,7 @@ public class ProductController {
         return productResponseDtos;
     }
 
-    @PostMapping("/products")
+    @PostMapping()
     public ProductResponseDto createProduct(@RequestBody CreateFakeStoreProductRequestDto createFakeStoreProductRequestDto) {
         Product product = this.productService.createProduct(
                 createFakeStoreProductRequestDto.getName(),
@@ -50,7 +51,7 @@ public class ProductController {
         return ProductResponseDto.from(product);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public ProductResponseDto replaceProduct(@PathVariable("id") long id,
                                              @RequestBody CreateFakeStoreProductRequestDto createFakeStoreProductRequestDto) {
         Product product = this.productService.replaceProduct(
@@ -64,14 +65,9 @@ public class ProductController {
         return ProductResponseDto.from(product);
     }
 
-    @PatchMapping(
-            path = "/products/{id}",
-            consumes = "application/json-patch+json"
-    )
-    public ProductResponseDto updateProduct(
-            @PathVariable("id") long id,
-            @RequestBody JsonPatch jsonPatch
-    ) throws ProductNotFoundException, JsonPatchException, JsonProcessingException {
+    @PatchMapping(path = "/{id}", consumes = "application/json-patch+json")
+    public ProductResponseDto updateProduct(@PathVariable("id") long id, @RequestBody JsonPatch jsonPatch)
+            throws ProductNotFoundException, JsonPatchException, JsonProcessingException {
         Product product = this.productService.applyPatchToProduct(id, jsonPatch);
         return ProductResponseDto.from(product);
     }
