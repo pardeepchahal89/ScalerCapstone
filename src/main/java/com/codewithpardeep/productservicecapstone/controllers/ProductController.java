@@ -23,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto getProduct(@PathVariable int id) throws ProductNotFoundException {
+    public ProductResponseDto getProduct(@PathVariable Long id) throws ProductNotFoundException {
         Product product = this.productService.getProductById(id);
         return ProductResponseDto.from(product);
     }

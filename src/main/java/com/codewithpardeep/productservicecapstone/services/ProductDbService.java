@@ -27,6 +27,7 @@ public class ProductDbService implements ProductService {
 
     @Override
     public Product getProductById(long id) throws ProductNotFoundException {
+        // getProductsAndCategories(id);
         // Optional<Category> categoryOptional = categoryRepository.findByName("electronics");
         // List<Product> products = productRepository.findByCategory(categoryOptional.get());
 
@@ -89,5 +90,24 @@ public class ProductDbService implements ProductService {
 
         Category categoryObj = getCategoryFromDb(category);
         product.setCategory(categoryObj);
+    }
+
+    private void getProductsAndCategories(long id) throws ProductNotFoundException {
+//        Optional<Product> productOptional = productRepository.findById(id);
+//        if (productOptional.isEmpty()) {
+//            throw new ProductNotFoundException("Product with id " + id + " not found");
+//        }
+//
+//        Product product = productOptional.get();
+//        System.out.println(product.getName());
+//        //System.out.println(product.getCategory().getName());
+//        System.out.println("Dummy Line");
+        List<Category> categories = categoryRepository.getCatgoriesUsingJoinFetch();
+        System.out.println("Fetching categories with size " + categories.size());
+        for (Category category : categories) {
+            System.out.println("Category " + category.getName() + " has " + category.getProducts().size());
+        }
+
+        System.out.println("Dummy Line");
     }
 }
