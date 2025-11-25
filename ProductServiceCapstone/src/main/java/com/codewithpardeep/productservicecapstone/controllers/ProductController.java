@@ -64,7 +64,21 @@ public class ProductController {
         );
         return ProductResponseDto.from(product);
     }
-
+    /*
+    * NOTES for configuring POSTMAN correctly to PATCH endpoint
+    * URL: http://localhost:8080/api/products/{id}
+    * Method: PATCH
+    * Headers:
+    *   Content-Type: application/json-patch+json
+    * Body:
+    * [
+    *    {
+    *       "op": "replace",
+    *       "path": "/price",
+    *       "value": 99.99
+    *    }
+    * ]
+    */
     @PatchMapping(path = "/{id}", consumes = "application/json-patch+json")
     public ProductResponseDto updateProduct(@PathVariable("id") long id, @RequestBody JsonPatch jsonPatch)
             throws ProductNotFoundException, JsonPatchException, JsonProcessingException {
