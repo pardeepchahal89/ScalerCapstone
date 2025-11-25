@@ -27,18 +27,16 @@ public class ProductDbService implements ProductService {
 
     @Override
     public Product getProductById(long id) throws ProductNotFoundException {
-        // getProductsAndCategories(id);
-        // Optional<Category> categoryOptional = categoryRepository.findByName("electronics");
-        // List<Product> products = productRepository.findByCategory(categoryOptional.get());
-
-        //List<Product> products = productRepository.findByCategory_Name("electronics");
-
-        // List<Product> products = productRepository.getProductsByCategoryNameNative("electronics");
-
-        // List<ProductProjection> projections = productRepository.getProjectedProduct("electronics");
-
-        // List<ProductProjectionDto> projectionDtos = productRepository.getProjectedProductDto("electronics");
-        // System.out.println(projectionDtos);
+        /*
+         getProductsAndCategories(id);
+         Optional<Category> categoryOptional = categoryRepository.findByName("electronics");
+         List<Product> products = productRepository.findByCategory(categoryOptional.get());
+         List<Product> products = productRepository.findByCategory_Name("electronics");
+         List<Product> products = productRepository.getProductsByCategoryNameNative("electronics");
+         List<ProductProjection> projections = productRepository.getProjectedProduct("electronics");
+         List<ProductProjectionDto> projectionDtos = productRepository.getProjectedProductDto("electronics");
+         System.out.println(projectionDtos);
+        */
 
         Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isEmpty()) {
